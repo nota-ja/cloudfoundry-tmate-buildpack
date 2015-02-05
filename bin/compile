@@ -41,9 +41,16 @@ if [ ! -f ${cache_target} ]; then
   curl -s https://s3.amazonaws.com/tmate-buildpack-assets/tmate > ${target}/bin/tmate
   chmod +x ${target}/bin/tmate
 
-  # download unbuffer
-  echo "-----> Downloading launcher..."
-  curl -s https://s3.amazonaws.com/tmate-buildpack-assets/launch > ${target}/bin/launch
+  # launcher
+  if [ -f ${build}/bin/launch ]; then
+    # use given launcher
+    echo "-----> ${build}/bin/launch exists. Skip downloading and use it"
+    cp -f ${build}/bin/launch ${target}/bin/launch
+  else
+    # download launcher
+    echo "-----> Downloading launcher..."
+    curl -s https://s3.amazonaws.com/tmate-buildpack-assets/launch > ${target}/bin/launch
+  fi
   chmod +x ${target}/bin/launch
 
   #Create cache slug
