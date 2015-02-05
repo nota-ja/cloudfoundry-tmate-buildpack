@@ -28,9 +28,13 @@ func main() {
   }
 
   bin := "tmate"
-  cmd := exec.Command(bin)
+  arg := ""
+  if os.Getenv("TMATE_VERBOSE_LOG") != "" {
+    arg = "-v"
+  }
+  cmd := exec.Command(bin, arg)
 
-  log.Print("Starting tmate...")
+  log.Printf("Starting %s %s ...\n", bin, arg)
 
   f, err := pty.Start(cmd)
   pty.Setsize(f, 1000, 1000)
