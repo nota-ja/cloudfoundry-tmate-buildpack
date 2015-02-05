@@ -29,7 +29,7 @@ if [ ! -f ${cache_target} ]; then
 
   echo "-----> Compiling libevent v${libe_version}..."
   #Compile libevent
-  curl -s ${libe_url} > ${libe_file}
+  curl -L -s ${libe_url} > ${libe_file}
   tar zxf ${libe_file}
   cd ${libe_dir}
   ./configure --prefix=${target} | indent
