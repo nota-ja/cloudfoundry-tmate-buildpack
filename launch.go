@@ -2,6 +2,9 @@ package main
 
 import (
   "github.com/danhigham/pty"
+
+  "flag"
+  "fmt"
   "io"
   "log"
   "net/http"
@@ -14,7 +17,15 @@ import (
   "net"
 )
 
+var Version = "UNKNOWN_VERSION"
+
 func main() {
+  showversion := flag.Bool("version", false, "Show version")
+  flag.Parse()
+  if *showversion {
+    fmt.Printf("\n%s\n\n", Version)
+    os.Exit(0)
+  }
 
   bin := "tmate"
   cmd := exec.Command(bin)
